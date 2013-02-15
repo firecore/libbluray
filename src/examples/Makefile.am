@@ -6,7 +6,7 @@ AM_CFLAGS = $(SET_FEATURES) $(SET_INCLUDES)
 EXTRA_PROGRAMS=bdsplice mpls_dump clpi_dump index_dump mobj_dump sound_dump \
     libbluray_test list_titles hdmv_test bd_info
 
-BLURAY_LIB = $(top_builddir)/src/libbluray.la
+BLURAY_LIB = $(top_builddir)/libbluray.la
 
 if USING_BDJAVA
   AM_CFLAGS += @BDJAVA_CFLAGS@

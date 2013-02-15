@@ -5,7 +5,7 @@
 
     <property name="src" location="java"/>
     <property name="build" location="build"/>
-    <property name="dist"  location="../.."/>
+    <property name="dist"  location="../../.."/>
     <property name="src_awt" value=""/>
     <property name="bootclasspath" value=""/>
 
