@@ -1,9 +1,5 @@
 include $(top_srcdir)/doxygen-include.am
 
-if USING_EXAMPLES
-SUBDIRS = src/examples
-endif
-
 ACLOCAL_AMFLAGS=-I m4
 
 EXTRA_DIST = \
@@ -107,7 +103,102 @@ pkginclude_HEADERS = \
 	src/libbluray/keys.h \
 	src/util/log_control.h
 
+EXTRA_PROGRAMS = \
+	bd_info \
+	bdsplice \
+	clpi_dump \
+	hdmv_test \
+	index_dump \
+	libbluray_test \
+	list_titles \
+	mobj_dump \
+	mpls_dump \
+	sound_dump
+
+# the overriding of CFLAGS is necessary to ensure that automake will
+# rebuild different objects for different targets.
+
+mpls_dump_CFLAGS = $(AM_CFLAGS)
+mpls_dump_SOURCES = \
+	src/examples/mpls_dump.c \
+	src/examples/util.c \
+	src/examples/util.h \
+	src/util/bits.c \
+	src/util/strutl.c \
+	src/util/logging.c \
+	src/file/file_posix.c \
+	src/file/dir_posix.c \
+	src/libbluray/bdnav/extdata_parse.c \
+	src/libbluray/bdnav/mpls_parse.c \
+	src/libbluray/bdnav/clpi_parse.c \
+	src/libbluray/bdnav/navigation.c
+
+clpi_dump_CFLAGS = $(AM_CFLAGS)
+clpi_dump_SOURCES = \
+	src/examples/clpi_dump.c \
+	src/examples/util.c \
+	src/examples/util.h \
+	src/util/bits.c \
+	src/util/logging.c \
+	src/file/file_posix.c \
+	src/libbluray/bdnav/extdata_parse.c \
+	src/libbluray/bdnav/clpi_parse.c
+
+sound_dump_CFLAGS = $(AM_CFLAGS)
+sound_dump_SOURCES = \
+	src/examples/sound_dump.c \
+	src/util/bits.c \
+	src/util/logging.c \
+	src/file/file_posix.c \
+	src/libbluray/bdnav/sound_parse.c
+
+index_dump_CFLAGS = $(AM_CFLAGS)
+index_dump_SOURCES = \
+	src/examples/index_dump.c \
+	src/util/bits.c \
+	src/util/logging.c \
+	src/file/file_posix.c \
+	src/libbluray/bdnav/index_parse.c
+
+mobj_dump_CFLAGS = $(AM_CFLAGS)
+mobj_dump_SOURCES = \
+	src/examples/mobj_dump.c \
+	src/util/bits.c \
+	src/util/logging.c \
+	src/file/file_posix.c \
+	src/libbluray/hdmv/mobj_parse.c \
+	src/libbluray/hdmv/mobj_print.c
+
+libbluray_test_CFLAGS = $(AM_CFLAGS)
+libbluray_test_SOURCES = \
+	src/examples/libbluray_test.c \
+	src/util/logging.c
+libbluray_test_LDADD = libbluray.la
+
+list_titles_CFLAGS = $(AM_CFLAGS)
+list_titles_SOURCES = \
+	src/examples/list_titles.c \
+	src/util/logging.c
+list_titles_LDADD = libbluray.la
+
+bdsplice_SOURCES = src/examples/bdsplice.c
+bdsplice_LDADD = libbluray.la
+
+hdmv_test_SOURCES = src/examples/hdmv_test.c
+hdmv_test_LDADD = libbluray.la
+
+bd_info_SOURCES = src/examples/bd_info.c
+bd_info_LDADD = libbluray.la
+
+bdj_test_SOURCES = src/examples/bdj_test.c
+bdj_test_LDADD = libbluray.la
+
 if USING_BDJAVA
+
+AM_CFLAGS += $(BDJAVA_CFLAGS)
+
+EXTRA_PROGRAMS += bdj_test
+
 jardir = $(libdir)/libbluray/
 jar_DATA = libbluray.jar
 
@@ -134,11 +225,13 @@ libbluray_la_SOURCES += \
 	src/libbluray/bdj/native/register_native.h \
 	src/libbluray/bdj/native/register_native.c
 
-AM_CFLAGS += $(BDJAVA_CFLAGS)
-
 clean-local:
 	ant -f $(top_srcdir)/src/libbluray/bdj/build.xml clean
 endif
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = src/libbluray.pc
+
+if USING_EXAMPLES
+noinst_PROGRAMS = $(EXTRA_PROGRAMS)
+endif
