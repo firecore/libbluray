@@ -1,7 +1,7 @@
 SET_FEATURES = -D_ISOC99_SOURCE -D_POSIX_C_SOURCE=200112L -D_REENTRANT
 SET_INCLUDES = -I$(top_srcdir) -I$(top_srcdir)/src -I$(top_srcdir)/src/file -I$(top_srcdir)/src/libbluray/bdnav
 
-AM_CFLAGS = -std=c99 $(SET_FEATURES) $(SET_INCLUDES)
+AM_CFLAGS = $(SET_FEATURES) $(SET_INCLUDES)
 
 if USING_EXAMPLES
 

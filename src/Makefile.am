@@ -1,7 +1,7 @@
 SET_FEATURES = -D_ISOC99_SOURCE -D_POSIX_C_SOURCE=200112L -D_REENTRANT
 SET_INCLUDES = -I$(top_srcdir) -Ifile -Ilibbluray/bdnav
 
-AM_CFLAGS = -std=c99 $(SET_FEATURES) $(SET_INCLUDES) $(LIBXML2_CFLAGS) $(FT2_CFLAGS)
+AM_CFLAGS = $(SET_FEATURES) $(SET_INCLUDES) $(LIBXML2_CFLAGS) $(FT2_CFLAGS)
 
 SOURCES_bdj = libbluray/bdj/bdj.h \
 	libbluray/bdj/bdj_private.h \

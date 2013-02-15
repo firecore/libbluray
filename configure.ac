@@ -93,6 +93,11 @@ AC_ARG_WITH([bdj-bootclasspath],
 
 dnl required programs
 AC_PROG_CC
+AC_PROG_CC_C99
+AS_IF([test "x$ac_cv_prog_cc_c99" = "xno"], [
+  AC_MSG_ERROR([no C99 compiler found, $PACKAGE requires a C99 compiler.])
+])
+
 AC_PROG_LIBTOOL
 
 dnl required types
