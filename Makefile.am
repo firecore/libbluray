@@ -118,7 +118,7 @@ EXTRA_PROGRAMS = \
 # the overriding of CFLAGS is necessary to ensure that automake will
 # rebuild different objects for different targets.
 
-mpls_dump_CFLAGS = $(AM_CFLAGS)
+mpls_dump_CFLAGS = $(AM_CFLAGS) -DMPLS_DUMP
 mpls_dump_SOURCES = \
 	src/examples/mpls_dump.c \
 	src/examples/util.c \

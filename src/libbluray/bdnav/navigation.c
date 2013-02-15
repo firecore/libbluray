@@ -214,6 +214,7 @@ void nav_free_title_list(NAV_TITLE_LIST *title_list)
     X_FREE(title_list);
 }
 
+#ifdef MPLS_DUMP
 char* nav_find_main_title(const char *root)
 {
     BD_DIR_H *dir;
@@ -284,6 +285,7 @@ char* nav_find_main_title(const char *root)
         return NULL;
     }
 }
+#endif
 
 uint8_t nav_lookup_aspect(NAV_CLIP *clip, int pid)
 {
