@@ -3,11 +3,8 @@ SET_INCLUDES = -I$(top_srcdir) -I$(top_srcdir)/src -I$(top_srcdir)/src/file -I$(
 
 AM_CFLAGS = $(SET_FEATURES) $(SET_INCLUDES)
 
-if USING_EXAMPLES
-
-noinst_PROGRAMS=bdsplice mpls_dump clpi_dump index_dump mobj_dump sound_dump \
-    libbluray_test list_titles hdmv_test
-bin_PROGRAMS=bd_info
+EXTRA_PROGRAMS=bdsplice mpls_dump clpi_dump index_dump mobj_dump sound_dump \
+    libbluray_test list_titles hdmv_test bd_info
 
 BLURAY_LIB = $(top_builddir)/src/libbluray.la
 
@@ -83,9 +80,7 @@ bd_info_SOURCES = \
 bd_info_LDADD = $(BLURAY_LIB)
 
 if USING_BDJAVA
-noinst_PROGRAMS+= bdj_test
+EXTRA_PROGRAMS+= bdj_test
 bdj_test_SOURCES = bdj_test.c
 bdj_test_LDADD = $(BLURAY_LIB)
-endif
-
 endif
