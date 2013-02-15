@@ -3,27 +3,11 @@ SET_INCLUDES = -I$(top_srcdir) -Ifile -Ilibbluray/bdnav
 
 AM_CFLAGS = $(SET_FEATURES) $(SET_INCLUDES) $(LIBXML2_CFLAGS) $(FT2_CFLAGS)
 
-SOURCES_bdj = libbluray/bdj/bdj.h \
-	libbluray/bdj/bdj_private.h \
-	libbluray/bdj/bdj_util.h \
-	libbluray/bdj/bdj_util.c \
-	libbluray/bdj/bdj.c \
-	libbluray/bdj/bdjo_parser.h \
-	libbluray/bdj/bdjo_parser.c \
-	libbluray/bdj/common.h \
-	libbluray/bdj/native/java_awt_BDGraphics.h \
-	libbluray/bdj/native/java_awt_BDGraphics.c \
-	libbluray/bdj/native/java_awt_BDFontMetrics.h \
-	libbluray/bdj/native/java_awt_BDFontMetrics.c \
-	libbluray/bdj/native/org_videolan_Libbluray.h \
-	libbluray/bdj/native/org_videolan_Libbluray.c \
-	libbluray/bdj/native/register_native.h \
-	libbluray/bdj/native/register_native.c
-
 EXTRA_DIST = libbluray/bdj/build.xml libbluray/bdj/java
 
 lib_LTLIBRARIES=libbluray.la
-libbluray_la_SOURCES=libbluray/bluray.h \
+libbluray_la_SOURCES = \
+	libbluray/bluray.h \
 	libbluray/bluray.c \
 	libbluray/bluray_internal.h \
 	libbluray/register.h \
@@ -103,7 +87,6 @@ pkginclude_HEADERS = \
 	util/log_control.h
 
 if USING_BDJAVA
-
 jardir=$(libdir)/libbluray/
 jar_DATA=libbluray.jar
 
@@ -112,14 +95,28 @@ libbluray.jar:
 	    -Dsrc_awt=:java-$(BDJ_TYPE) \
 	    -Dbootclasspath="$(BDJ_BOOTCLASSPATH)"
 
-libbluray_la_SOURCES+=$(SOURCES_bdj)
-AM_CFLAGS+=@BDJAVA_CFLAGS@
+libbluray_la_SOURCES += \
+	libbluray/bdj/bdj.h \
+	libbluray/bdj/bdj_private.h \
+	libbluray/bdj/bdj_util.h \
+	libbluray/bdj/bdj_util.c \
+	libbluray/bdj/bdj.c \
+	libbluray/bdj/bdjo_parser.h \
+	libbluray/bdj/bdjo_parser.c \
+	libbluray/bdj/common.h \
+	libbluray/bdj/native/java_awt_BDGraphics.h \
+	libbluray/bdj/native/java_awt_BDGraphics.c \
+	libbluray/bdj/native/java_awt_BDFontMetrics.h \
+	libbluray/bdj/native/java_awt_BDFontMetrics.c \
+	libbluray/bdj/native/org_videolan_Libbluray.h \
+	libbluray/bdj/native/org_videolan_Libbluray.c \
+	libbluray/bdj/native/register_native.h \
+	libbluray/bdj/native/register_native.c
 
-all-local: libbluray.jar
+AM_CFLAGS += $(BDJAVA_CFLAGS)
 
 clean-local:
 	ant -f $(top_srcdir)/src/libbluray/bdj/build.xml clean
-
 endif
 
 pkgconfigdir = $(libdir)/pkgconfig
