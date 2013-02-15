@@ -105,17 +105,17 @@ pkginclude_HEADERS = \
 if USING_BDJAVA
 
 jardir=$(libdir)/libbluray/
-jar_DATA=$(top_builddir)/src/.libs/libbluray.jar
+jar_DATA=libbluray.jar
 
-$(top_builddir)/src/.libs/libbluray.jar: all-local
+libbluray.jar:
+	ant -f $(top_srcdir)/src/libbluray/bdj/build.xml \
+	    -Dsrc_awt=:java-$(BDJ_TYPE) \
+	    -Dbootclasspath="$(BDJ_BOOTCLASSPATH)"
 
 libbluray_la_SOURCES+=$(SOURCES_bdj)
 AM_CFLAGS+=@BDJAVA_CFLAGS@
 
-all-local:
-	ant -f $(top_srcdir)/src/libbluray/bdj/build.xml \
-	    -Dsrc_awt=:java-$(BDJ_TYPE) \
-	    -Dbootclasspath="$(BDJ_BOOTCLASSPATH)"
+all-local: libbluray.jar
 
 clean-local:
 	ant -f $(top_srcdir)/src/libbluray/bdj/build.xml clean

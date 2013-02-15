@@ -36,4 +36,5 @@ src/examples/bd_info
 src/examples/hdmv_test
 src/examples/*.exe
 src/libbluray/bdj/build
+src/libbluray.jar
 stamp-h1
