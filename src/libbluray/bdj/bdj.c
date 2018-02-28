@@ -245,7 +245,7 @@ static char *_java_home_macos()
         return NULL;
     }
 
-    switch (java_home_pid = vfork())
+/*    switch (java_home_pid = vfork())
     {
         case -1:
             BD_DEBUG(DBG_BDJ | DBG_CRIT, "vfork failed\n");
@@ -276,7 +276,7 @@ static char *_java_home_macos()
             }
 
             waitpid(java_home_pid, &exitcode, 0);
-    }
+    }*/
 
     if (result[0] == '\0' || exitcode) {
         BD_DEBUG(DBG_BDJ | DBG_CRIT,
