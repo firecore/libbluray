@@ -246,6 +246,10 @@ static void _video_props(MPLS_STN *s, int *full_hd, int *mpeg12)
         if (s->video[ii].format == BD_VIDEO_FORMAT_1080I || s->video[ii].format == BD_VIDEO_FORMAT_1080P) {
             *full_hd = 1;
         }
+		// Fix for selection of the title in UHD Blu-rays (INFUSE-8843)
+		if (s->video[ii].format == BD_VIDEO_FORMAT_2160P) {
+			*full_hd = 2;
+		}
     }
 }
 
